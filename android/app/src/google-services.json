@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "391944871156",
+    "project_id": "nkoala-1b47e",
+    "storage_bucket": "nkoala-1b47e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391944871156:android:4d88472b942b64278d92a1",
+        "android_client_info": {
+          "package_name": "com.example.notepad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391944871156-er671vj90hnmo3uk5ntndtu7hmuda11s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-UiEyMyvwpcM0_Tfi_AYfXq1mcWgpUoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391944871156-er671vj90hnmo3uk5ntndtu7hmuda11s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
