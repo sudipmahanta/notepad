@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:notepad/home/home_appbar.dart';
+import 'package:notepad/home/home_modal_sheet.dart';
+import 'package:notepad/utils/button.dart';
+import '../task/task_list.dart';
 import '../utils/colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,6 +12,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime lastExitTime = DateTime.now();
+
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height-
+        (MediaQuery.of(context).padding.bottom +
+            MediaQuery.of(context).padding.top);
+
+
 
     return WillPopScope(
       onWillPop: () async{
@@ -27,15 +38,39 @@ class HomeScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            child: Column(
-              children: const[
-                HomeHeader(),
-
-              ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Column(
+                children: const [
+                  HomeHeader(),
+                  TaskList()
+                ],
+              ),
             ),
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: KoalaFloatingActionButton(
+          width: width * 0.95,
+          height: 47,
+          onPressed: () {
+            debugPrint('Pressed');
+            showModalBottomSheet(
+              barrierColor: Colors.black38,
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+            ),
+              context: context,
+              builder: (BuildContext context) {
+                // Decoration of Modal BottomSheet
+                return const HomeModalSheetScreen();
+              },
+            );
+            },
+          icon: LineIcons.plus,
+          label: 'Add Task',
         ),
       ),
     );

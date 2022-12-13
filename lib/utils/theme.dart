@@ -48,22 +48,32 @@ class AppTheme {
         // TITLE
         titleLarge: TextStyle(
             fontSize: 16,
+            fontWeight: FontWeight.w500,
             fontFamily: 'Montserrat'
+        ),
+        titleMedium: TextStyle(
+            fontSize: 14,
+            color: Colors.black87,
+            // fontFamily: 'Montserrat'
         ),
         titleSmall: TextStyle(
             fontSize: 12,
             fontFamily: 'Montserrat'
         ),
-        titleMedium: TextStyle(
-            fontSize: 14,
-            fontFamily: 'Montserrat'
-        ),
+
 
         // Label
+        labelLarge: TextStyle(
+          fontSize: 14,
+          color: Colors.grey,
+        ),
+        labelMedium: TextStyle(
+          fontSize: 12,
+          color: Colors.grey,
+        ),
         labelSmall: TextStyle(
           fontSize: 10,
           color: Colors.grey,
-          fontFamily: 'Montserrat'
         )
     ),
 
@@ -94,6 +104,7 @@ class AppTheme {
           borderSide: const BorderSide(color: secoundaryColor),
         )
     ),
+
     // ElevatedButton
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -116,6 +127,23 @@ class AppTheme {
       )
     ),
 
-
+    // FloatingActionButton
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      elevation: 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16)
+      ),
+        backgroundColor: primaryColor,
+        extendedTextStyle: const TextStyle(
+            fontFamily: 'Montserrat',
+            color: Colors.white
+        )
+    ),
+    
+    cardTheme: CardTheme(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8)
+      )
+    )
   );
 }

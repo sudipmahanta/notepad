@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notepad/auth/widget/auth_input.dart';
 import 'package:notepad/home/home_screen.dart';
 import 'package:notepad/utils/koala_progress_indicator.dart';
@@ -162,8 +163,25 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           progressIndicator = false;
         });
-      }catch(e) {
+      }on FirebaseAuthException catch(e) {
+        setState(() {
+          progressIndicator = true;
+        });
+        if(e.code == 'user-not-found') {
+          Fluttertoast.showToast(msg: 'User Not Found');
+        }else if(e.code == 'wrong-password') {
+          Fluttertoast.showToast(msg: 'Incorrect Password');
+        }else if(e.code == 'invalid-email') {
+          Fluttertoast.showToast(msg: 'Invalid Email');
+        }else if(e.code == 'user-disabled') {
+          Fluttertoast.showToast(msg: 'User Blocked');
+        }else {
+
+        }
         debugPrint(e.toString());
+        setState(() {
+          progressIndicator = false;
+        });
       }
     }
   }

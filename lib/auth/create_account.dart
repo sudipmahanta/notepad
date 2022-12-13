@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notepad/auth/auth_model/auth_model.dart';
 import 'package:notepad/auth/widget/auth_input.dart';
 import 'package:notepad/utils/koala_progress_indicator.dart';
@@ -35,6 +36,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     double height = MediaQuery.of(context).size.height-
         (MediaQuery.of(context).padding.bottom +
             MediaQuery.of(context).padding.top);
+
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -88,6 +90,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         ],
                       )
                   ),
+
                   Align(
                     alignment: Alignment.bottomRight,
                     child: TextButton(
@@ -185,12 +188,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         progressIndicator = true;
       });
       if(e.code == 'email-already-in-use') {
-        const SnackBar(content: Text('User Already Exist'));
+        Fluttertoast.showToast(msg: 'Email already in use');
       } else if(e.code == 'invalid-email') {
-        const SnackBar(content: Text('Invalid User'));
+        Fluttertoast.showToast(msg: 'Invalid Email');
       } else if(e.code == 'weak-password') {
-        const SnackBar(content: Text('Weak Password'));
-      }else{
+        Fluttertoast.showToast(msg: 'Weak Password');
+      }else if(e.code == 'operation-not-allowed'){
+        Fluttertoast.showToast(msg: 'Connect with Service Provider to enable');
+      }else {
 
       }
       setState(() {

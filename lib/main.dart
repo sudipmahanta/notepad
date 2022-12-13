@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:notepad/auth/login.dart';
 import 'package:notepad/home/home_screen.dart';
 import 'package:notepad/utils/theme.dart';
@@ -13,7 +14,9 @@ void main() async{
   SharedPreferences pref = await SharedPreferences.getInstance();
   var email = pref.getString("email");
   debugPrint('Login Email: $email');
-  runApp(MyApp(email: email,));
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]).then((value) => runApp(MyApp(email: email,)));
 }
 
 class MyApp extends StatelessWidget {

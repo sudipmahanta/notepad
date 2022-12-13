@@ -8,7 +8,6 @@ class AuthenticationServices {
  Future createKoalaCredentials(String name, String phoneNumber, String email, String password) async{
    try{
      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-     // UserCredential R = await _auth.signInWithCredential();
      User? user = result.user;
      debugPrint('email: ${user?.email}\npwd: ${user?.phoneNumber}');
    }catch(e) {
