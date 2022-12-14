@@ -13,16 +13,45 @@ class _TaskListState extends State<TaskList> {
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(3, (index) => TaskCardView(
+        index: index,
         onTap: () {
           debugPrint('TaskCardView');
         },
-        title: 'Test',
-        index: index,
-        actions: Row(
-          children: [
+        title: 'Task -01',
+        subtitle: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
             Icon(LineIcons.clock,
-              size: 12,
-            )
+              size: 14,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(LineIcons.calendar,
+              size: 14,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(LineIcons.bell,
+              size: 14,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(LineIcons.alternateRedo,
+              size: 14,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(LineIcons.paperclip,
+              size: 14,
+            ),
+            SizedBox(
+              width: 10,
+            ),
           ],
         ),
         )
@@ -32,11 +61,12 @@ class _TaskListState extends State<TaskList> {
 }
 
 class TaskCardView extends StatefulWidget {
+  final int index;
   final VoidCallback onTap;
   final String title;
-  final Widget? actions;
-  final int index;
-  const TaskCardView({Key? key, required this.onTap, required this.title, this.actions, required this.index}) : super(key: key);
+  final Widget? subtitle;
+  final Widget? trailing;
+  const TaskCardView({Key? key, required this.onTap, required this.title, this.subtitle, this.trailing,required this.index}) : super(key: key);
 
   @override
   State<TaskCardView> createState() => _TaskCardViewState();
@@ -45,12 +75,12 @@ class TaskCardView extends StatefulWidget {
 class _TaskCardViewState extends State<TaskCardView> {
 
   bool? groupValue = true;
+  final dimissibleKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.2,
-      color: Colors.grey.shade50,
       child: ListTile(
         onTap: widget.onTap,
         horizontalTitleGap: 0,
@@ -70,7 +100,8 @@ class _TaskCardViewState extends State<TaskCardView> {
             decoration: groupValue == false ? TextDecoration.lineThrough : TextDecoration.none,
           ),
         ),
-        subtitle: widget.actions
+        subtitle: widget.subtitle,
+        trailing: widget.trailing,
       )
     );
   }

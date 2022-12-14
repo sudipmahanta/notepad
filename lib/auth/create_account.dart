@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notepad/auth/auth_model/auth_model.dart';
 import 'package:notepad/auth/widget/auth_input.dart';
-import 'package:notepad/utils/koala_progress_indicator.dart';
+import 'package:notepad/utils/todo_progress_indicator.dart';
 import '../utils/button.dart';
 import '../utils/colors.dart';
 import '../utils/input_field.dart';

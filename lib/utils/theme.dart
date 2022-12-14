@@ -136,6 +136,13 @@ class AppTheme {
 
     // CardTheme
     cardTheme: CardTheme(
+        color: Colors.grey.shade200,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8)
+        )
+    ),
+    
+    listTileTheme: ListTileThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8)
       )

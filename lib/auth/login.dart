@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notepad/auth/widget/auth_input.dart';
 import 'package:notepad/home/home_screen.dart';
-import 'package:notepad/utils/koala_progress_indicator.dart';
+import 'package:notepad/utils/todo_progress_indicator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
         sharedPreferences.setString('email', emailController.text);
         Navigator.push(context, PageTransition(
             child: const HomeScreen(),
-            duration: Duration(milliseconds: 450),
+            duration: const Duration(milliseconds: 450),
             type: PageTransitionType.leftToRight)
         );
         final userDetails = credential.user;
