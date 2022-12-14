@@ -61,7 +61,6 @@ class AppTheme {
             fontFamily: 'Montserrat'
         ),
 
-
         // Label
         labelLarge: TextStyle(
           fontSize: 14,
@@ -118,13 +117,8 @@ class AppTheme {
     ),
 
     // Todo Ripple effect color of button
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        textStyle: const TextStyle(
-          color: secoundTextColor,
-          fontFamily: 'Montserrat',
-        )
-      )
+    textButtonTheme: const TextButtonThemeData(
+
     ),
 
     // FloatingActionButton
@@ -139,11 +133,21 @@ class AppTheme {
             color: Colors.white
         )
     ),
-    
+
+    // CardTheme
     cardTheme: CardTheme(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8)
       )
+    ),
+
+    // RadioTheme
+    checkboxTheme: const CheckboxThemeData(
+      materialTapTargetSize: MaterialTapTargetSize.padded
+    ),
+
+    radioTheme: const RadioThemeData(
+
     )
   );
 }

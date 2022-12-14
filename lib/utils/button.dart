@@ -29,6 +29,37 @@ class PrimaryButton extends StatelessWidget {
   }
 }
 
+class SecoundaryButton extends StatelessWidget {
+  final double width;
+  final double height;
+  final String label;
+  final VoidCallback onPressed;
+  const SecoundaryButton({Key? key, required this.width, required this.height, required this.onPressed, required this.label}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: secoundaryColor.withOpacity(0.5)
+        ),
+        child: Text(label,
+          style: const TextStyle(
+              letterSpacing: 1.5,
+              // color: secoundTextColor,
+              fontWeight: FontWeight.w600
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
 class KoalaFloatingActionButton extends StatelessWidget {
   final double width;
   final double height;

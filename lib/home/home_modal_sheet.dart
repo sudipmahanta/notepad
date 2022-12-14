@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:notepad/home/widget/sub_task_ListTile.dart';
 import 'package:notepad/utils/button.dart';
 import 'package:notepad/utils/input_field.dart';
 
@@ -15,24 +16,25 @@ class HomeModalSheetScreen extends StatefulWidget {
 
 class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
 
+  final taskTypeController = TextEditingController();
   final titleController = TextEditingController();
   final reminderDateController = TextEditingController(text: DateFormat('dd-MM-yyyy').format( DateTime.now()).toString());
   final reminderTimeController = TextEditingController(text: TimeOfDay.now().toString());
   final descController = TextEditingController();
-  String dropdownValue = 'Workout';
+  String defaultValue = 'All';
+  List<String> dropDownItemList = ['All', 'Class', 'Gym', 'Groceries', 'Home', 'Meet Up', 'Shopping'];
+  int listLength = 0;
 
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height-
-        (MediaQuery.of(context).padding.bottom +
-            MediaQuery.of(context).padding.top);
     return SingleChildScrollView(
       child: SafeArea(
-        child: Padding(
+        child: Container(
           padding: EdgeInsets.only(left: 10, top: 10, right: 10,
               bottom: MediaQuery.of(context).viewInsets.bottom),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -44,8 +46,20 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
                 ),
               ),
               const Divider(),
-              const KoalaDropDownButton(),
 
+              Text('Task Category', style: Theme.of(context).textTheme.titleMedium,),
+              KoalaDropDownButton(
+                height: 40,
+                width: width * 0.45,
+                dialogPositionX: -0.90,
+                dialogPositionY: 0.42,
+                controller: taskTypeController,
+                suffixIcon: const Icon(LineIcons.angleDown,
+                  size: 18,
+                ),
+                  defaultValue: defaultValue,
+                  dropDownItemList: dropDownItemList,
+              ),
 
               Text('Task Title', style: Theme.of(context).textTheme.titleMedium,),
               TextInputField(
@@ -86,13 +100,42 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
                 ],
               ),
 
-              Text('Description', style: Theme.of(context).textTheme.titleMedium),
-              MultiLineTextField(
-                  hintText: 'Desc',
-                  controller: descController
+              ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 110),
+                child: Column(
+                  children: List.generate(listLength, (index) =>
+                      SubTaskListTile(
+                        controller: descController,
+                        onPressTrailing: () {
+                          setState(() {
+                            listLength = listLength - 1;
+                          });
+                          debugPrint(listLength.toString());
+                        },)
+                  ),
+                ),
               ),
 
-              PrimaryButton(width: width, height: 47, onPressed: (){ }, label: 'SUBMIT')
+              TextButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      listLength = listLength + 1;
+                    });
+                    debugPrint(listLength.toString());
+                  },
+                  icon: const Icon(LineIcons.plus,
+                    size: 18,
+                  ),
+                  label: const Text('Add Sub-Task')
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SecoundaryButton(width: width * 0.63, height: 47, onPressed: () {}, label: 'Add Sub-Task'),
+                  PrimaryButton(width: width * 0.3, height: 47, onPressed: (){ }, label: 'SUBMIT'),
+                ],
+              )
             ],
           ),
         ),

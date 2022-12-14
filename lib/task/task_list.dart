@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({Key? key}) : super(key: key);
@@ -12,78 +12,66 @@ class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(10, (index) => TaskCardView(
-        onTap: () {  },
-        category: 'Shopping',
-        title: 'Title',
-        description: 'Description that will be longer than this',
-        date: '22-01-2022',
-        time: '09:00 AM',
+      children: List.generate(3, (index) => TaskCardView(
+        onTap: () {
+          debugPrint('TaskCardView');
+        },
+        title: 'Test',
+        index: index,
+        actions: Row(
+          children: [
+            Icon(LineIcons.clock,
+              size: 12,
+            )
+          ],
+        ),
         )
       ),
     );
   }
 }
 
-class TaskCardView extends StatelessWidget {
+class TaskCardView extends StatefulWidget {
   final VoidCallback onTap;
-  final String category;
   final String title;
-  final String? description;
-  final String date;
-  final String time;
-  const TaskCardView({Key? key, required this.onTap, required this.title, this.description, required this.date, required this.time, required this.category}) : super(key: key);
+  final Widget? actions;
+  final int index;
+  const TaskCardView({Key? key, required this.onTap, required this.title, this.actions, required this.index}) : super(key: key);
+
+  @override
+  State<TaskCardView> createState() => _TaskCardViewState();
+}
+
+class _TaskCardViewState extends State<TaskCardView> {
+
+  bool? groupValue = true;
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0.4,
+      elevation: 0.2,
       color: Colors.grey.shade50,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(category,
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      color: Colors.deepOrange
-                    ),
-                  ),
-                  Text(title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  SizedBox(
-                    width: 210,
-                    child: Text(description!,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  )
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(date.toString(),
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                  Text(time.toString(),
-                    style: Theme.of(context).textTheme.labelSmall,
-                  )
-                ],
-              )
-            ],
+      child: ListTile(
+        onTap: widget.onTap,
+        horizontalTitleGap: 0,
+        minLeadingWidth: 0,
+        contentPadding: EdgeInsets.zero,
+        leading: Radio<bool>(
+          toggleable: true,
+            value: false,
+            groupValue: groupValue,
+            onChanged: (bool? value){
+            setState(() {
+              groupValue = value;
+            });
+          }),
+        title: Text(widget.title,
+          style: TextStyle(
+            decoration: groupValue == false ? TextDecoration.lineThrough : TextDecoration.none,
           ),
         ),
-      ),
+        subtitle: widget.actions
+      )
     );
   }
 }

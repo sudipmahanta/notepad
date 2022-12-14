@@ -14,16 +14,10 @@ class HomeScreen extends StatelessWidget {
     DateTime lastExitTime = DateTime.now();
 
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height-
-        (MediaQuery.of(context).padding.bottom +
-            MediaQuery.of(context).padding.top);
-
-
 
     return WillPopScope(
       onWillPop: () async{
         if (DateTime.now().difference(lastExitTime) >= const Duration(seconds: 2)) {
-          //showing message to user
           const snack =  SnackBar(
             backgroundColor: primaryColor,
             content:  Text("Press the back button again to exist the app"),
@@ -42,9 +36,18 @@ class HomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   HomeHeader(),
-                  TaskList()
+
+                  Text('Previous'),
+                  TaskList(),
+
+                  Text('Today'),
+                  TaskList(),
+
+                  Text('Upcoming'),
+                  TaskList(),
                 ],
               ),
             ),
@@ -60,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               barrierColor: Colors.black38,
               isScrollControlled: true,
               shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
             ),
               context: context,
               builder: (BuildContext context) {

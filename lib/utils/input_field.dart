@@ -13,7 +13,7 @@ class TextInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.only(top: 5, bottom: 10),
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.text,
@@ -51,7 +51,6 @@ class PickerInputField extends StatefulWidget {
 }
 
 class _PickerInputFieldState extends State<PickerInputField> {
-
   Future<void> reminderDate(String pick) async{
     if(pick == 'Date') {
       DateTime initialDate = DateTime.now();
@@ -88,7 +87,7 @@ class _PickerInputFieldState extends State<PickerInputField> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.only(top: 5, bottom: 10),
       child: TextFormField(
         onTap: () {
           reminderDate(widget.pick.toString());
@@ -130,7 +129,7 @@ class MultiLineTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.only(top: 5, bottom: 10),
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.text,
