@@ -20,7 +20,6 @@ class TextInputField extends StatelessWidget {
         textCapitalization: TextCapitalization.sentences,
         cursorColor: secoundaryColor,
         cursorWidth: 1.5,
-        cursorHeight: 20,
         cursorRadius: const Radius.circular(8),
         validator: (value){
           if(value == null || value.isEmpty){
@@ -71,11 +70,11 @@ class _PickerInputFieldState extends State<PickerInputField> {
       TimeOfDay? pickedTime = await showTimePicker(
           context: context,
           initialTime: initialTime,
-        initialEntryMode: TimePickerEntryMode.dial
+          initialEntryMode: TimePickerEntryMode.dial
       );
       if(pickedTime != null) {
         setState(() {
-          widget.controller.text = pickedTime.toString(); //set output date to TextField value.
+          widget.controller.text = pickedTime.format(context); //set output date to TextField value.
         });
       }else {
         widget.controller.text =  TimeOfDay.now().toString();

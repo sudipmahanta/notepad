@@ -7,6 +7,12 @@ class AppTheme {
     scaffoldBackgroundColor: primaryBGColor,
     fontFamily: 'Montserrat',
 
+    //appBar
+    appBarTheme: const AppBarTheme(
+      color: Colors.transparent,
+      elevation: 0
+    ),
+
     //icon Theme
     iconTheme: const IconThemeData(
         color: primaryColor
@@ -48,7 +54,7 @@ class AppTheme {
         // TITLE
         titleLarge: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             fontFamily: 'Montserrat'
         ),
         titleMedium: TextStyle(
@@ -141,7 +147,8 @@ class AppTheme {
             borderRadius: BorderRadius.circular(8)
         )
     ),
-    
+
+    // ListTheme
     listTileTheme: ListTileThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8)

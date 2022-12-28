@@ -2,14 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:notepad/auth/widget/auth_input.dart';
-import 'package:notepad/home/home_screen.dart';
+import 'package:notepad/home/screens/home_screen.dart';
 import 'package:notepad/utils/todo_progress_indicator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/button.dart';
 import '../utils/colors.dart';
-import '../utils/utils.dart';
 import 'create_account.dart';
 
 
@@ -48,13 +47,13 @@ class _LoginScreenState extends State<LoginScreen> {
                  const Spacer(),
 
                   // Koala Image
-                  SizedBox(
-                    width: 165,
-                    height: 165,
-                    child: Image.asset(koalaImg,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: 165,
+                  //   height: 165,
+                  //   child: Image.asset(koalaImg,
+                  //     fit: BoxFit.contain,
+                  //   ),
+                  // ),
 
                   Text('Let start planning!',
                     style: Theme.of(context).textTheme.headlineMedium,

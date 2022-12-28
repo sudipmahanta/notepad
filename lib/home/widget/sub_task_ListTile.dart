@@ -16,24 +16,27 @@ class _SubTaskListTileState extends State<SubTaskListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: Colors.grey.shade300,
-      contentPadding: EdgeInsets.zero,
-      horizontalTitleGap: 0,
-      leading: Checkbox(
-          value: check,
-          onChanged: (value) {
-            setState(() {
-              check=!check;
-            });
-          }),
-      title: SubTaskInputField(
-          hintText: 'Add sub task',
-          controller: widget.controller
-      ),
-      trailing: IconButton(
-        onPressed: widget.onPressTrailing,
-        icon: const Icon(LineIcons.times) ,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: ListTile(
+        tileColor: Colors.grey.shade300,
+        contentPadding: EdgeInsets.zero,
+        horizontalTitleGap: 0,
+        leading: Checkbox(
+            value: check,
+            onChanged: (value) {
+              setState(() {
+                check=!check;
+              });
+            }),
+        title: SubTaskInputField(
+            hintText: 'Add sub task',
+            controller: widget.controller
+        ),
+        trailing: IconButton(
+          onPressed: widget.onPressTrailing,
+          icon: const Icon(LineIcons.times) ,
+        ),
       ),
     );
   }

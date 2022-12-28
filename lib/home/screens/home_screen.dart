@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:notepad/home/home_appbar.dart';
-import 'package:notepad/home/home_modal_sheet.dart';
+import 'package:notepad/home/widget/home_appbar.dart';
+import 'package:notepad/home/widget/home_modal_sheet.dart';
 import 'package:notepad/utils/button.dart';
-import '../task/task_list.dart';
-import '../utils/colors.dart';
+import '../../task/task_list.dart';
+import '../../utils/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -31,6 +31,7 @@ class HomeScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
+        appBar: const HomeHeader(),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -38,8 +39,6 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  HomeHeader(),
-
                   Text('Previous'),
                   TaskList(),
 
@@ -63,8 +62,10 @@ class HomeScreen extends StatelessWidget {
               barrierColor: Colors.black38,
               isScrollControlled: true,
               shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
-            ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20)
+            )),
               context: context,
               builder: (BuildContext context) {
                 // Decoration of Modal BottomSheet
