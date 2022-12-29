@@ -97,18 +97,18 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
                   ),
                 ),
                 
-                // KoalaDropDownButton(
-                //   height: 40,
-                //   width: width * 0.45,
-                //   dialogPositionX: -0.90,
-                //   dialogPositionY: 0.42,
-                //   controller: taskCategoryController,
-                //   suffixIcon: const Icon(LineIcons.angleDown,
-                //     size: 18,
-                //   ),
-                //   defaultValue: defaultValue,
-                //   dropDownItemList: dropDownItemList,
-                // ),
+                /*KoalaDropDownButton(
+                  height: 40,
+                  width: width * 0.45,
+                  dialogPositionX: -0.90,
+                  dialogPositionY: 0.42,
+                  controller: taskCategoryController,
+                  suffixIcon: const Icon(LineIcons.angleDown,
+                    size: 18,
+                  ),
+                  defaultValue: defaultValue,
+                  dropDownItemList: dropDownItemList,
+                ),*/
 
                 Text('Task Title', style: Theme.of(context).textTheme.titleMedium,),
                 TextInputField(
