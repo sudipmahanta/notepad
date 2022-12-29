@@ -189,8 +189,7 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
                       debugPrint(reminderTimeController.toString());
                     },
                     // addTasks,
-                    label: 'SUBMIT'
-                )
+                    label: 'SUBMIT')
               ],
             ),
           ),
