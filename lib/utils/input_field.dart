@@ -55,7 +55,8 @@ class _PickerInputFieldState extends State<PickerInputField> {
       DateTime initialDate = DateTime.now();
       DateTime? pickedDate = await showDatePicker(
           context: context,
-          initialDate: initialDate, lastDate: DateTime(4000),
+          initialDate: initialDate,
+          lastDate: DateTime(4000),
           firstDate: initialDate);
       if(pickedDate != null) {
         String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);

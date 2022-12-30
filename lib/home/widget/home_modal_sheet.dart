@@ -6,6 +6,10 @@ import 'package:notepad/utils/button.dart';
 import 'package:notepad/utils/input_field.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:notepad/utils/todo_progress_indicator.dart';
+
+import '../../task/widget/todo_dropdown_button.dart';
+import '../../utils/colors.dart';
 
 class HomeModalSheetScreen extends StatefulWidget {
   const HomeModalSheetScreen({Key? key}) : super(key: key);
@@ -17,22 +21,24 @@ class HomeModalSheetScreen extends StatefulWidget {
 class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
 
   final taskCategoryController = TextEditingController();
-  final titleController = TextEditingController();
-  final reminderDateController = TextEditingController(text: DateFormat('dd-MM-yyyy').format( DateTime.now()).toString());
-  final reminderTimeController = TextEditingController(text: '12:00 AM');
-  final descController = TextEditingController();
-  String? defaultValue = 'All';
+  TextEditingController titleController = TextEditingController();
+  TextEditingController reminderDateController = TextEditingController(text: DateFormat('dd-MM-yyyy').format( DateTime.now()).toString());
+  TextEditingController reminderTimeController = TextEditingController(text: '12:00 AM');
+  TextEditingController descController = TextEditingController();
+  String defaultValue = 'All';
   List<String> dropDownItemList = ['All', 'Class', 'Gym', 'Groceries', 'Home', 'Meet Up', 'Shopping'];
   int listLength = 0;
 
+  bool progressIndicator = false;
+
   CollectionReference tasks = FirebaseFirestore.instance.collection('tasks');
 
-  Future<void> addTasks() async {
+  Future<void> addTasks() async{
     return tasks.add({
       'taskCategory': defaultValue.toString(),
       'title': titleController.text,
       'date': reminderDateController.text.toString(),
-      'time': reminderTimeController.text.toString()
+      'time': reminderTimeController.text.toString(),
     }).then((value) => debugPrint('Updated')
    // const SnackBar(content: Text('Data Added Successfully'))
     ).catchError((error) => debugPrint('Failed')
@@ -40,18 +46,28 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
     );
   }
 
+  void clearField() {
+    defaultValue = 'All';
+    titleController.clear();
+    reminderDateController = TextEditingController(text: DateFormat('dd-MM-yyyy').format( DateTime.now()).toString());
+    reminderTimeController = TextEditingController(text: '12:00 AM');
+  }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return SingleChildScrollView(
       child: SafeArea(
         child: Container(
+          height: height * 0.75,
           padding: EdgeInsets.only(left: 10, top: 10, right: 10,
               bottom: MediaQuery.of(context).viewInsets.bottom
           ),
-          child: Form(
+          child:  progressIndicator == true ? const Center(
+              child: KoalaProgressIndicator(text: 'Uploading Task',)):
+          Form(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -64,51 +80,38 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
                 ),
                 const Divider(),
 
-                Text('Task Category', style: Theme.of(context).textTheme.titleMedium,),
-                Container(
-                  height: 47,
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1.0,
-                      color: Colors.grey
-                    ),
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: defaultValue,
-                      icon: const Icon(LineIcons.angleDown,
-                        size: 14,
-                      ),
-                      items: dropDownItemList.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          defaultValue = newValue!;
-                        });
-                      },
-                    ),
-                  ),
+                Text('Task Category',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 
-                /*KoalaDropDownButton(
+                KoalaDropDownButton(
                   height: 40,
                   width: width * 0.45,
-                  dialogPositionX: -0.90,
-                  dialogPositionY: 0.42,
-                  controller: taskCategoryController,
                   suffixIcon: const Icon(LineIcons.angleDown,
                     size: 18,
                   ),
-                  defaultValue: defaultValue,
-                  dropDownItemList: dropDownItemList,
-                ),*/
+                  value: defaultValue,
+                  items: dropDownItemList.map((e) => Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                    margin: const EdgeInsets.symmetric(vertical: 2.0),
+                    decoration: BoxDecoration(
+                        color: e.toString() == 'All' ?
+                        secoundaryColor.withOpacity(0.4): primaryColor.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: GestureDetector(
+                        onTap: (){
+                          defaultValue = e;
+                          setState(() { });
+                          Navigator.pop(context);
+                        },
+                        child: Text(e,
+                          style: TextStyle(
+                              color: (e.toString() == 'All') ? Colors.white : Colors.black
+                          ),)
+                    ),)
+                  ).toList(growable: true),
+                ),
 
                 Text('Task Title', style: Theme.of(context).textTheme.titleMedium,),
                 TextInputField(
@@ -181,13 +184,17 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
                 PrimaryButton(
                     width: width,
                     height: 47,
-                    onPressed: () {
-                      addTasks();
-                      debugPrint(defaultValue.toString());
-                      debugPrint(reminderDateController.toString());
-                      debugPrint(reminderTimeController.toString());
+                    onPressed: () async{
+                      // if()
+                      setState(() {
+                        progressIndicator = true;
+                      });
+                      await addTasks();
+                      clearField();
+                      setState(() {
+                        progressIndicator = false;
+                      });
                     },
-                    // addTasks,
                     label: 'SUBMIT')
               ],
             ),

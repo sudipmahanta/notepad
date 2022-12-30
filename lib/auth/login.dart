@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.maxFinite,
               height: height,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: progressIndicator == true ? const KoalaProgressIndicator() : Column(
+              child: progressIndicator == true ? const KoalaProgressIndicator(text: 'Authenticating',) : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,

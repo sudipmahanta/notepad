@@ -40,7 +40,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-            child: progressIndicator == true ? const KoalaProgressIndicator() :
+            child: progressIndicator == true ? const KoalaProgressIndicator(text: 'Creating Account',) :
             Container(
               width: double.maxFinite,
               height: height,
