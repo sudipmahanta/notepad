@@ -4,8 +4,8 @@ import 'package:notepad/home/widget/home_input_field.dart';
 
 class SubTaskListTile extends StatefulWidget {
   final VoidCallback onPressTrailing;
-  final TextEditingController controller;
-  const SubTaskListTile({Key? key, required this.controller, required this.onPressTrailing}) : super(key: key);
+  final TextEditingController? controller;
+  const SubTaskListTile({Key? key, this.controller, required this.onPressTrailing}) : super(key: key);
 
   @override
   State<SubTaskListTile> createState() => _SubTaskListTileState();
@@ -16,10 +16,15 @@ class _SubTaskListTileState extends State<SubTaskListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 2.0),
       padding: const EdgeInsets.symmetric(vertical: 2.0),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(10)
+      ),
       child: ListTile(
-        tileColor: Colors.grey.shade300,
+        tileColor: Colors.grey.shade50,
         contentPadding: EdgeInsets.zero,
         horizontalTitleGap: 0,
         leading: Checkbox(
@@ -27,10 +32,16 @@ class _SubTaskListTileState extends State<SubTaskListTile> {
             onChanged: (value) {
               setState(() {
                 check=!check;
+                debugPrint(check.toString());
               });
             }),
         title: SubTaskInputField(
             hintText: 'Add sub task',
+            style: check == true ? const TextStyle(
+              decoration: TextDecoration.lineThrough
+            ): const TextStyle(
+              decoration: TextDecoration.none
+            ),
             controller: widget.controller
         ),
         trailing: IconButton(

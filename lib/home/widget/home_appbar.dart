@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notepad/auth/auth_model/auth_model.dart';
 import 'package:notepad/home/widget/home_string.dart';
+import '../../auth/auth_services/auth_model.dart';
 import '../../auth/login.dart';
 import '../../utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';

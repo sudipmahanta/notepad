@@ -9,13 +9,16 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
+
+  final key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(3, (index) => TaskCardView(
         index: index,
         onTap: () {
-          debugPrint('TaskCardView');
+          debugPrint(index.toString());
         },
         title: 'Task -01',
         subtitle: Row(
@@ -66,7 +69,13 @@ class TaskCardView extends StatefulWidget {
   final String title;
   final Widget? subtitle;
   final Widget? trailing;
-  const TaskCardView({Key? key, required this.onTap, required this.title, this.subtitle, this.trailing,required this.index}) : super(key: key);
+
+  const TaskCardView({Key? key,
+    required this.onTap,
+    required this.title,
+    this.subtitle,
+    this.trailing,
+    required this.index}) : super(key: key);
 
   @override
   State<TaskCardView> createState() => _TaskCardViewState();
@@ -75,12 +84,13 @@ class TaskCardView extends StatefulWidget {
 class _TaskCardViewState extends State<TaskCardView> {
 
   bool? groupValue = true;
-  final dimissibleKey = GlobalKey();
+  final key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.2,
+      margin: const EdgeInsets.symmetric(vertical: 1.5),
       child: ListTile(
         onTap: widget.onTap,
         horizontalTitleGap: 0,
@@ -97,6 +107,8 @@ class _TaskCardViewState extends State<TaskCardView> {
           }),
         title: Text(widget.title,
           style: TextStyle(
+            fontSize: Theme.of(context).textTheme.labelLarge!.fontSize,
+            fontWeight: FontWeight.w500,
             decoration: groupValue == false ? TextDecoration.lineThrough : TextDecoration.none,
           ),
         ),

@@ -60,143 +60,146 @@ class _HomeModalSheetScreenState extends State<HomeModalSheetScreen> {
 
     return SingleChildScrollView(
       child: SafeArea(
-        child: Container(
-          height: height * 0.75,
-          padding: EdgeInsets.only(left: 10, top: 10, right: 10,
-              bottom: MediaQuery.of(context).viewInsets.bottom
-          ),
-          child:  progressIndicator == true ? const Center(
-              child: KoalaProgressIndicator(text: 'Uploading Task',)):
-          Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text('New Task',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                ),
-                const Divider(),
-
-                Text('Task Category',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                
-                KoalaDropDownButton(
-                  height: 40,
-                  width: width * 0.45,
-                  suffixIcon: const Icon(LineIcons.angleDown,
-                    size: 18,
-                  ),
-                  value: defaultValue,
-                  items: dropDownItemList.map((e) => Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                    margin: const EdgeInsets.symmetric(vertical: 2.0),
-                    decoration: BoxDecoration(
-                        color: e.toString() == 'All' ?
-                        secoundaryColor.withOpacity(0.4): primaryColor.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: GestureDetector(
-                        onTap: (){
-                          defaultValue = e;
-                          setState(() { });
-                          Navigator.pop(context);
-                        },
-                        child: Text(e,
-                          style: TextStyle(
-                              color: (e.toString() == 'All') ? Colors.white : Colors.black
-                          ),)
-                    ),)
-                  ).toList(growable: true),
-                ),
-
-                Text('Task Title', style: Theme.of(context).textTheme.titleMedium,),
-                TextInputField(
-                    width: double.maxFinite,
-                    hintText: 'Task Title',
-                    controller: titleController
-                ),
-
-                // DueDate & Time
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Date', style: Theme.of(context).textTheme.titleSmall),
-                        PickerInputField(
-                          pick: 'Date',
-                          width: width * 0.45,
-                          controller: reminderDateController,
-                          prefixIcon: LineIcons.calendar
-                        ),
-                      ],
-                    ),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Time', style: Theme.of(context).textTheme.titleSmall),
-                        PickerInputField(
-                          pick: 'Time',
-                          width: width * 0.45,
-                          controller: reminderTimeController,
-                          prefixIcon: LineIcons.clock,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-
-                ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 110),
-                  child: Column(
-                    children: List.generate(listLength, (index) =>
-                        SubTaskListTile(
-                          controller: descController,
-                          onPressTrailing: () {
-                            setState(() {
-                              listLength = listLength - 1;
-                            });
-                            debugPrint(listLength.toString());
-                          },)
+        child: Padding(
+          padding: EdgeInsets.only( bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            height: height * 0.75,
+            padding: const EdgeInsets.only(left: 10, top: 10, right: 10,),
+            color: Colors.white,
+            child:  progressIndicator == true ? const Center(
+                child: KoalaProgressIndicator(text: 'Uploading Task',)):
+            Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text('New Task',
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
-                ),
+                  const Divider(),
 
-                TextButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        listLength = listLength + 1;
-                      });
-                      debugPrint(listLength.toString());
-                    },
-                    icon: const Icon(LineIcons.plus,
+                  Text('Task Category',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+
+                  KoalaDropDownButton(
+                    height: 40,
+                    width: width * 0.45,
+                    suffixIcon: const Icon(LineIcons.angleDown,
                       size: 18,
                     ),
-                    label: const Text('Add Sub-Task')
-                ),
+                    value: defaultValue,
+                    items: dropDownItemList.map((e) => Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                      margin: const EdgeInsets.symmetric(vertical: 2.0),
+                      decoration: BoxDecoration(
+                          color: e.toString() == 'All' ?
+                          secoundaryColor.withOpacity(0.4): primaryColor.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8)
+                      ),
+                      child: GestureDetector(
+                          onTap: (){
+                            defaultValue = e;
+                            setState(() { });
+                            Navigator.pop(context);
+                          },
+                          child: Text(e,
+                            style: TextStyle(
+                                color: (e.toString() == 'All') ? Colors.white : Colors.black
+                            ),)
+                      ),)
+                    ).toList(growable: true),
+                  ),
 
-                PrimaryButton(
-                    width: width,
-                    height: 47,
-                    onPressed: () async{
-                      // if()
-                      setState(() {
-                        progressIndicator = true;
-                      });
-                      await addTasks();
-                      clearField();
-                      setState(() {
-                        progressIndicator = false;
-                      });
-                    },
-                    label: 'SUBMIT')
-              ],
+                  Text('Task Title', style: Theme.of(context).textTheme.titleMedium,),
+                  TextInputField(
+                      width: double.maxFinite,
+                      hintText: 'Task Title',
+                      controller: titleController
+                  ),
+
+                  // DueDate & Time
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Date', style: Theme.of(context).textTheme.titleSmall),
+                          PickerInputField(
+                            pick: 'Date',
+                            width: width * 0.45,
+                            controller: reminderDateController,
+                            prefixIcon: LineIcons.calendar
+                          ),
+                        ],
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Time', style: Theme.of(context).textTheme.titleSmall),
+                          PickerInputField(
+                            pick: 'Time',
+                            width: width * 0.45,
+                            controller: reminderTimeController,
+                            prefixIcon: LineIcons.clock,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+
+                  Container(
+                    height: 110,
+                    constraints: const BoxConstraints(minHeight: 115),
+                    child: ListView.builder(
+                        itemCount: listLength,
+                        itemBuilder: (context, index) {
+                          return SubTaskListTile(
+                            // controller: descController,
+                            onPressTrailing: () {
+                              setState(() {
+                                listLength = listLength - 1;
+                              });
+                              debugPrint(listLength.toString());
+                            });
+                        })
+                  ),
+
+                  TextButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          listLength = listLength + 1;
+                        });
+                        debugPrint(listLength.toString());
+                      },
+                      icon: const Icon(LineIcons.plus,
+                        size: 18,
+                      ),
+                      label: const Text('Add Sub-Task')
+                  ),
+
+                  PrimaryButton(
+                      width: width,
+                      height: 47,
+                      onPressed: () async{
+                        // if()
+                        setState(() {
+                          progressIndicator = true;
+                        });
+                        await addTasks();
+                        clearField();
+                        setState(() {
+                          progressIndicator = false;
+                        });
+                      },
+                      label: 'SUBMIT')
+                ],
+              ),
             ),
           ),
         ),

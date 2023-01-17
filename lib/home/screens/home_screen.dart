@@ -3,7 +3,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:notepad/home/widget/home_appbar.dart';
 import 'package:notepad/home/widget/home_modal_sheet.dart';
 import 'package:notepad/utils/button.dart';
-import '../../task/task_list.dart';
+import '../../task/screens/task_list.dart';
 import '../../utils/colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
     DateTime lastExitTime = DateTime.now();
 
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return WillPopScope(
       onWillPop: () async{
@@ -38,15 +39,30 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Previous'),
-                  TaskList(),
+                children:  [
+                  Text('Previous',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const TaskList(),
+                  SizedBox(
+                    height: height * 0.025,
+                  ),
 
-                  Text('Today'),
-                  TaskList(),
+                  Text('Today',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const TaskList(),
+                  SizedBox(
+                    height: height * 0.025,
+                  ),
 
-                  Text('Upcoming'),
-                  TaskList(),
+                  Text('Upcoming',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const TaskList(),
+                  SizedBox(
+                    height: height * 0.1,
+                  )
                 ],
               ),
             ),
@@ -54,7 +70,7 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: KoalaFloatingActionButton(
-          width: width * 0.95,
+          width: width * 0.85,
           height: 47,
           onPressed: () {
             debugPrint('Pressed');

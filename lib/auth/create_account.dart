@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:notepad/auth/auth_model/auth_model.dart';
 import 'package:notepad/auth/widget/auth_input.dart';
 import 'package:notepad/utils/todo_progress_indicator.dart';
 import '../utils/button.dart';
@@ -9,6 +8,7 @@ import '../utils/colors.dart';
 import '../utils/input_field.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'auth_services/auth_model.dart';
 import 'login.dart';
 
 
@@ -169,7 +169,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       setState(() {
         progressIndicator = true;
       });
-      dynamic result = await _authenticationServices.createKoalaCredentials(
+      dynamic result = await _authenticationServices.createUserCredentials(
           nameController.text,
           phoneNumberController.text,
           emailController.text,
